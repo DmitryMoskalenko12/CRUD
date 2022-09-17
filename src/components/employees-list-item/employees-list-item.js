@@ -21,7 +21,7 @@ onRise = () =>{
   }))
 }
   render(){
-    const {name, salary} = this.props;
+    const {name, salary, remove} = this.props;
     const {increase, rise} = this.state;
     let styleClass = 'list-group-item d-flex justify-content-between';
     if (increase) {
@@ -43,7 +43,7 @@ onRise = () =>{
                  
               </button>
 
-              <button type="button"
+              <button onClick={remove} type="button"
                       className="btn-trash btn-sm ">
                   <i className="fas fa-trash"></i>
               </button>
