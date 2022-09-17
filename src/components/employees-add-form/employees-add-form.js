@@ -23,6 +23,7 @@ import {Component} from 'react';
      salary: ''
     })
   }
+
    render(){
     const {name, salary} = this.state
     return (

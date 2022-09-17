@@ -42,17 +42,36 @@ class App extends Component {
     data: data.filter(elem => elem.id !== id)
    }))
   }
+
+  onToggle = (id, prop) => {
+
+    this.setState(({data})=>({
+    data: data.map(elem =>{
+      if (elem.id === id) {
+        return {...elem, [prop]: !elem[prop]}
+      }
+      
+    return elem
+    })
+    }))
+  
+  }
+
+ 
   render(){
+    const allEmployers = this.state.data.length;
+    const getPrem = this.state.data.filter(elem => elem.rise).length
+
     return (
       <div className="app">
-          <AppInfo />
+          <AppInfo allEmployers ={allEmployers} getPrem = {getPrem}/>
   
           <div className="search-panel">
               <SearchPanel/>
               <AppFilter/>
           </div>
           
-          <EmployeesList data={this.state.data} remove = {this.onDelete}/>
+          <EmployeesList onToggle={this.onToggle} data={this.state.data} remove = {this.onDelete}/>
           <EmployeesAddForm add = {this.onAdd}/>
       </div>
     );
