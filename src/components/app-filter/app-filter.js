@@ -23,11 +23,8 @@ const active = props.filter === elem.filter ? 'btn btn-light' : 'btn btn-outline
     className={active}>
     {elem.name}
     </button>
-) 
-         
-       
+)       
 })
-
     return (
         <div className="btn-group">
          {result}
