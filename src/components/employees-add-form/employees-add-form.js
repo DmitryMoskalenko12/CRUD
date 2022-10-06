@@ -5,17 +5,13 @@ import {useState} from 'react';
   const [name, setName] = useState('');
   const [salary, setSalary] = useState('');
 
- const onValueChange = (e) =>{
-  setName(e.target.value);
-  setSalary(e.target.value);
-  }
 
  const onSubmit = (e) =>{
-    e.preventDefault();
-    props.add(name, salary);
-    setName('');
-    setSalary('');
-  }
+  e.preventDefault();
+  props.add(name, salary);
+  setName('');
+  setSalary('');
+}
 
   
     return (
@@ -23,10 +19,10 @@ import {useState} from 'react';
           <h3>Добавьте нового сотрудника</h3>
           <form onSubmit={onSubmit}
               className="add-form d-flex">
-              <input value={name} name="name" onChange={onValueChange} type="text"
+              <input value={name} name="name" onChange={(e) => setName(e.target.value)} type="text"
                   className="form-control new-post-label"
                   placeholder="Как его зовут?" />
-              <input value={salary} name="salary" onChange={onValueChange} type="number"
+              <input value={salary} name="salary" onChange={(e) => setSalary(e.target.value)} type="number"
                   className="form-control new-post-label"
                   placeholder="З/П в $?" />
 

@@ -3,63 +3,48 @@ import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
 import EmployeesList from '../employees-list/employees-list';
 import EmployeesAddForm from '../employees-add-form/employees-add-form';
-import {Component} from 'react';
+import {useState} from 'react';
 
 import './app.scss';
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      data:[
-        {name:'John Smith', salary: 1000, increase: false, rise: false, id: 1},
-        {name:'Katrine Bruster', salary: 700, increase: false, rise: false, id: 2},
-        {name:'Arnold', salary: 500, increase: false, rise: false, id: 3},
-        {name:'Her mayor', salary: 2000, increase: false, rise: false, id: 4}
-      ],
-      words : '',
-      filter: 'all'
-    }
-    this.addNew = 5
+const App = () => {
+    const [data, setData] = useState([
+      {name:'John Smith', salary: 1000, increase: false, rise: false, id: 1},
+      {name:'Katrine Bruster', salary: 700, increase: false, rise: false, id: 2},
+      {name:'Arnold', salary: 500, increase: false, rise: false, id: 3},
+      {name:'Her mayor', salary: 2000, increase: false, rise: false, id: 4}
+    ]);
+    const [words, setWords] = useState('');
+    const [filter, setFilter] = useState('all');
     
-  }
-
-
- onAdd = (name, salary) => {
+    let addNew = 5
+    
+ const onAdd = (name, salary) => {
   if (name.length !== 0 && salary.length !== 0) {
     let persone = {
       name,
       salary,
       increase: false,
       rise: false,
-      id: this.addNew++
+      id: addNew++
     }
-  this.setState(({data}) => ({
-    data: [...data, persone]
-  }))
-  }
-  
-}
+     setData([...data, persone]) 
+ }
+ }
 
-  onDelete = (id)=>{
-   this.setState(({data})=>({
-    data: data.filter(elem => elem.id !== id)
-   }))
+ const onDelete = (id)=>{
+     setData( data.filter(elem => elem.id !== id))
   }
 
-  onToggle = (id, prop) => {
-
-    this.setState(({data})=>({
-    data: data.map(elem =>{
+ const onToggle = (id, prop) => {
+    setData (data.map(elem =>{
       if (elem.id === id) {
         return {...elem, [prop]: !elem[prop]}
       }
         return elem
-    })
-  }))
-  
+    }))
   }
-setWord = (data, item) => {
+const setWord = (data, item) => {
     if (item.length === 0) {
       return data
     }
@@ -68,7 +53,7 @@ setWord = (data, item) => {
     }) 
   }
 
- setFilter = (data, filter) => {
+ const setFilters = (data, filter) => {
       switch (filter) {
         case 'all':
           return data.filter(elem => elem)
@@ -81,34 +66,30 @@ setWord = (data, item) => {
       }
 
  }
-  onUpdateSearch = (term) => {
-   this.setState({words: term})
+ const onUpdateSearch = (term) => {
+    setWords(term)
   }
 
-  onFilterChange = (filter) => {
-    this.setState({filter})
+ const onFilterChange = (filter) => {
+    setFilter(filter)
   }
  
-  render(){
-    const {words, data, filter} = this.state
-    const allEmployers = this.state.data.length;
-    const getPrem = this.state.data.filter(elem => elem.rise).length;
-    const result = this.setFilter(this.setWord(data, words), filter)
+    const allEmployers = data.length;
+    const getPrem = data.filter(elem => elem.rise).length;
+    const result = setFilters(setWord(data, words), filter)
     return (
       <div className="app">
           <AppInfo allEmployers = {allEmployers} getPrem = {getPrem}/>
   
           <div className="search-panel">
-              <SearchPanel onUpdateSearch = {this.onUpdateSearch}/>
-              <AppFilter filter = {filter} onFilterChange = {this.onFilterChange}/>
+              <SearchPanel onUpdateSearch = {onUpdateSearch}/>
+              <AppFilter filter = {filter} onFilterChange = {onFilterChange}/>
           </div>
           
-          <EmployeesList onToggle = {this.onToggle} data = {result} remove = {this.onDelete}/>
-          <EmployeesAddForm add = {this.onAdd}/>
+          <EmployeesList onToggle = {onToggle} data = {result} remove = {onDelete}/>
+          <EmployeesAddForm add = {onAdd}/>
       </div>
-    );
+    )
   }
  
-}
-
 export default App;
