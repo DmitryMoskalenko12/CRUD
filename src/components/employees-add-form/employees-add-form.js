@@ -26,7 +26,7 @@ import {useState} from 'react';
                   className="form-control new-post-label"
                   placeholder="З/П в $?" />
 
-              <button type="submit"
+              <button 
                       className="btn btn-outline-light">Добавить</button>
           </form>
       </div>

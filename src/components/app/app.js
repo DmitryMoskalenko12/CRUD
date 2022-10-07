@@ -3,7 +3,7 @@ import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
 import EmployeesList from '../employees-list/employees-list';
 import EmployeesAddForm from '../employees-add-form/employees-add-form';
-import {useState} from 'react';
+import { useState} from 'react';
 
 import './app.scss';
 
@@ -17,19 +17,20 @@ const App = () => {
     const [words, setWords] = useState('');
     const [filter, setFilter] = useState('all');
     
-    let addNew = 5
-    
+
  const onAdd = (name, salary) => {
   if (name.length !== 0 && salary.length !== 0) {
-    let persone = {
+    const persone = {
       name,
       salary,
       increase: false,
       rise: false,
-      id: addNew++
+      id: Date.now() 
     }
+    
      setData([...data, persone]) 
- }
+  }
+  
  }
 
  const onDelete = (id)=>{
@@ -37,7 +38,7 @@ const App = () => {
   }
 
  const onToggle = (id, prop) => {
-    setData (data.map(elem =>{
+    setData(data.map(elem =>{
       if (elem.id === id) {
         return {...elem, [prop]: !elem[prop]}
       }
