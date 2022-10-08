@@ -16,6 +16,7 @@ const buttons = [
   }
   
 ]
+
 const result = buttons.map((elem) => {
 const active = props.filter === elem.filter ? 'btn btn-light' : 'btn btn-outline-light';
  return( 
