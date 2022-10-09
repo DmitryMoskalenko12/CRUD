@@ -50,12 +50,11 @@ if (item.length === 0) {
   return data
 }
 return data.filter(elem=>{
-  return  elem.name.indexOf(item) > -1
+  return  elem.name.indexOf(item) > -1 /* toLowerCase().includes(item) */
 }) 
 }
 
 const setFilters = (data, filter) => {
-  console.log('render')
     switch (filter) {
       case 'all':
         return data.filter(elem => elem)
